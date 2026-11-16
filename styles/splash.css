@@ -1,0 +1,104 @@
+/* Pantalla de carga al estilo Disney+: tapa la página hasta que la portada aleatoria está lista. */
+body.is-splashing {
+  overflow: hidden;
+}
+
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+
+  background: radial-gradient(ellipse at 50% 40%, #1a2a52 0%, var(--background) 55%, #060b19 100%);
+  transition: opacity 0.6s ease, visibility 0.6s;
+}
+
+.splash.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.splash__logo {
+  width: min(320px, 60vw);
+  height: auto;
+  animation: splash-logo 1s ease-out both;
+}
+
+.splash__spinner {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  animation: splash-fade 0.6s 0.4s ease-out both;
+}
+
+.splash__spinner::before,
+.splash__spinner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 3px solid transparent;
+}
+
+.splash__spinner::before {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.splash__spinner::after {
+  border-top-color: var(--accent);
+  border-right-color: #3a8dff;
+  filter: drop-shadow(0 0 6px rgba(12, 255, 255, 0.55));
+  animation: splash-spin 0.9s linear infinite;
+}
+
+.splash__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+@keyframes splash-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes splash-logo {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splash-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash__logo,
+  .splash__spinner {
+    animation: none;
+  }
+
+  .splash__spinner::after {
+    animation-duration: 2s;
+  }
+}

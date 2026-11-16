@@ -1,0 +1,142 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+
+  height: var(--header-height);
+  padding: 0 var(--page-padding-right) 0 var(--page-padding-left);
+
+  background: linear-gradient(180deg, rgba(13, 22, 46, 0.8) 0%, rgba(13, 22, 46, 0) 100%);
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+.header--solid {
+  background: rgba(13, 22, 46, 0.97);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.logo img {
+  display: block;
+  width: auto;
+  height: 40px;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+}
+
+.header__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  position: relative;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.header__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
+
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.header__link:hover::after {
+  transform: scaleX(1);
+}
+
+.button__menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 10px;
+
+  width: 46px;
+  padding: 8px 0;
+  background: transparent;
+}
+
+.button__menu span {
+  width: 100%;
+  height: 3px;
+  border-radius: 6px;
+
+  display: block;
+  background: var(--primary);
+
+  transition: width 0.4s;
+}
+
+.button__menu span:last-child {
+  width: 45%;
+}
+
+.button__menu:hover span:last-child {
+  width: 100%;
+}
+
+@media(max-width: 768px) {
+  .header {
+    gap: 24px;
+  }
+
+  .logo img {
+    height: 32px;
+  }
+
+  .header__nav {
+    gap: 20px;
+    justify-content: flex-end;
+  }
+
+  .header__link span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .header__link .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .button__menu {
+    width: 32px;
+    row-gap: 7px;
+  }
+}

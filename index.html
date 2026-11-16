@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Lzplay | Películas</title>
+    <meta name="description" content="Lzplay: explora películas y series de Disney, Pixar, Marvel y Star Wars, reprodúcelas y arma tu propia lista." />
+
+    <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="assets/favicon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="assets/favicon-180.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles/global.css" />
+  </head>
+  <body class="is-splashing">
+    <div class="splash" role="status" aria-live="polite">
+      <img class="splash__logo" src="assets/logo.png" alt="" width="972" height="339" />
+      <span class="splash__spinner" aria-hidden="true"></span>
+      <span class="splash__label">Cargando Lzplay…</span>
+    </div>
+
+    <svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="icon-play" viewBox="0 0 32 32">
+        <path d="M5.72,32h-.9A2.83,2.83,0,0,1,2,29.18V3.82A2.83,2.83,0,0,1,4.82,1h.9A5.08,5.08,0,0,1,8.36,2.41L24.55,13.87a3.72,3.72,0,0,1,0,5.26l-.12.11L8.36,30.59A5.08,5.08,0,0,1,5.72,32ZM5.66,3H4.82A.84.84,0,0,0,4,3.83V29.18a.82.82,0,0,0,.82.82h.9A5.3,5.3,0,0,0,7,29.1L7.17,29l16-11.32a1.71,1.71,0,0,0,0-2.31L7,3.89A5,5,0,0,0,5.66,3Z" />
+      </symbol>
+      <symbol id="icon-home" viewBox="0 0 24 24">
+        <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="m20 20-4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-list" viewBox="0 0 24 24">
+        <path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-sala" viewBox="0 0 24 24">
+        <rect x="3" y="5" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M8 21h8M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24">
+        <path d="m5 12.5 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-info" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-document" viewBox="0 0 24 24">
+        <path d="M14 3H7a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7z M14 3v4h4 M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-chevron-left" viewBox="0 0 24 24">
+        <path d="m15 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 24 24">
+        <path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+        <path d="M19 12H5m6-6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-play-solid" viewBox="0 0 24 24">
+        <path d="M8 5.5v13a1 1 0 0 0 1.52.85l10.4-6.5a1 1 0 0 0 0-1.7L9.52 4.65A1 1 0 0 0 8 5.5z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-pause" viewBox="0 0 24 24">
+        <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
+        <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-next-episode" viewBox="0 0 24 24">
+        <path d="M6 5.2 16 12 6 18.8z" fill="currentColor" />
+        <path d="M17.6 5.2h2.2v13.6h-2.2z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-previous-episode" viewBox="0 0 24 24">
+        <path d="M18 5.2 8 12l10 6.8z" fill="currentColor" />
+        <path d="M4.2 5.2h2.2v13.6H4.2z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-episodes" viewBox="0 0 24 24">
+        <path d="M6.6 6.2h13a1.8 1.8 0 0 1 1.8 1.8v8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M4 9.6h13a1.8 1.8 0 0 1 1.8 1.8v6.4a1.8 1.8 0 0 1-1.8 1.8H4a1.8 1.8 0 0 1-1.8-1.8v-6.4A1.8 1.8 0 0 1 4 9.6z" fill="none" stroke="currentColor" stroke-width="1.8" />
+      </symbol>
+      <symbol id="icon-replay10" viewBox="0 0 24 24">
+        <path d="M12 4a8 8 0 1 1-7.75 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M14.5 1.5 12 4l2.5 2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        <text x="12" y="15" text-anchor="middle" font-size="7" font-weight="700" font-family="Montserrat, sans-serif" fill="currentColor">10</text>
+      </symbol>
+      <symbol id="icon-forward10" viewBox="0 0 24 24">
+        <path d="M12 4a8 8 0 1 0 7.75 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        <path d="M9.5 1.5 12 4 9.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        <text x="12" y="15" text-anchor="middle" font-size="7" font-weight="700" font-family="Montserrat, sans-serif" fill="currentColor">10</text>
+      </symbol>
+      <symbol id="icon-gear" viewBox="0 0 24 24">
+        <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z" fill="none" stroke="currentColor" stroke-width="1.8" />
+        <path d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.6-2-3.4-2.4 1a7.4 7.4 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A7.4 7.4 0 0 0 7 6.5l-2.4-1-2 3.4 2 1.6a7.6 7.6 0 0 0 0 3l-2 1.6 2 3.4 2.4-1a7.4 7.4 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a7.4 7.4 0 0 0 2.6-1.5l2.4 1 2-3.4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-volume" viewBox="0 0 24 24">
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        <path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-volume-mute" viewBox="0 0 24 24">
+        <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+        <path d="m15.5 9.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-user" viewBox="0 0 24 24">
+        <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-sync" viewBox="0 0 24 24">
+        <path d="M20 11a8 8 0 0 0-14.3-4.9M4 13a8 8 0 0 0 14.3 4.9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <path d="M5 3v4h4M19 21v-4h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24">
+        <path d="M4 20h4L19 9a2.83 2.83 0 0 0-4-4L4 16z M13.5 6.5l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-wallpaper" viewBox="0 0 24 24">
+        <rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="m3 16 5-5 4 4 3-3 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+        <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-eye" viewBox="0 0 24 24">
+        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2" />
+      </symbol>
+      <symbol id="icon-eye-off" viewBox="0 0 24 24">
+        <path d="M10.6 5.1A10.4 10.4 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.1M6.6 6.6A17.4 17.4 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-brightness" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4" fill="currentColor" />
+        <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </symbol>
+    </svg>
+
+    <header class="header">
+      <a href="#inicio" class="logo">
+        <img src="assets/logo.png" alt="Lzplay, ir al inicio" width="972" height="339" />
+      </a>
+
+      <nav class="header__nav" aria-label="Principal">
+        <a href="#inicio" class="header__link">
+          <svg class="icon" aria-hidden="true"><use href="#icon-home"></use></svg>
+          <span>Inicio</span>
+        </a>
+        <button type="button" class="header__link" id="open-search" title="Buscar (tecla /)">
+          <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+          <span>Buscar</span>
+        </button>
+        <a href="#mi-lista" class="header__link">
+          <svg class="icon" aria-hidden="true"><use href="#icon-list"></use></svg>
+          <span>Mi lista</span>
+        </a>
+        <button type="button" class="header__link" id="open-sala-virtual" title="Sala Virtual">
+          <svg class="icon" aria-hidden="true"><use href="#icon-sala"></use></svg>
+          <span>Sala Virtual</span>
+        </button>
+      </nav>
+
+      <button type="button" class="header__account" id="open-account" aria-haspopup="dialog" title="Cuenta Plix">
+        <svg class="icon" aria-hidden="true"><use href="#icon-user"></use></svg>
+        <img class="header__account-avatar" alt="" hidden />
+        <span class="header__account-name">Entrar</span>
+      </button>
+
+      <button type="button" class="button__menu" aria-label="Abrir historial" title="Historial" aria-expanded="false" aria-controls="navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <div class="navigation__backdrop"></div>
+    <aside class="navigation" id="navigation" aria-label="Historial" inert>
+      <button type="button" class="navigation__close" aria-label="Cerrar">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+
+      <div class="history__header">
+        <div>
+          <h2>Historial</h2>
+          <p class="navigation__hint">Lo último que abriste o reprodujiste.</p>
+        </div>
+        <button type="button" class="button button--secondary history__clear" id="history-clear">Borrar</button>
+      </div>
+
+      <ul class="history__list"></ul>
+      <p class="history__empty">Aún no has visto nada. Lo que abras o reproduzcas aparecerá aquí.</p>
+    </aside>
+
+    <main>
+      <section class="hero hero--loading" id="inicio">
+        <div class="hero__image">
+          <img alt="" />
+        </div>
+
+        <div class="feature__movie">
+          <div class="rating">
+            <span class="badge">TMDB</span>
+            <strong></strong>
+          </div>
+          <span class="feature__info"></span>
+          <h1>Cargando…</h1>
+          <p class="feature__overview"></p>
+
+          <div class="feature__actions">
+            <button type="button" class="button button--primary button--large" id="hero-play">
+              <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+              <span>Reproducir</span>
+            </button>
+            <button type="button" class="button button--secondary button--large" id="hero-info">
+              <svg class="icon" aria-hidden="true"><use href="#icon-info"></use></svg>
+              <span>Más información</span>
+            </button>
+            <button type="button" class="button button--icon button--large" id="hero-list"></button>
+          </div>
+        </div>
+      </section>
+
+      <div class="rows">
+        <section class="genre-rail" id="genre-rail" aria-label="Géneros">
+          <div class="row__header">
+            <h2 class="row__title">Géneros</h2>
+          </div>
+          <div class="genre-rail__track" role="list"></div>
+        </section>
+
+        <div id="genre-rows"></div>
+
+        <section class="row" id="mi-lista" aria-label="Mi lista">
+          <div class="row__header">
+            <h2 class="row__title">Mi lista</h2>
+            <div class="row__controls">
+              <button type="button" class="row__arrow" data-direction="-1" aria-label="Anterior">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+              </button>
+              <button type="button" class="row__arrow" data-direction="1" aria-label="Siguiente">
+                <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+              </button>
+            </div>
+          </div>
+          <ul class="row__track"></ul>
+          <p class="row__message">Aún no agregas películas. Usa el botón + en cualquier película para guardarla aquí.</p>
+        </section>
+
+        <div id="rows"></div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>
+        © Lzplay. Datos e imágenes de <a href="https://www.themoviedb.org/" target="_blank" rel="noopener">TMDB</a>.
+        Este sitio usa la API de TMDB, pero no está respaldado ni certificado por TMDB.
+      </p>
+    </footer>
+
+    <template id="row-template">
+      <section class="row">
+        <div class="row__header">
+          <h2 class="row__title"></h2>
+          <div class="row__controls">
+            <button type="button" class="row__arrow" data-direction="-1" aria-label="Anterior">
+              <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+            </button>
+            <button type="button" class="row__arrow" data-direction="1" aria-label="Siguiente">
+              <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+            </button>
+          </div>
+        </div>
+        <ul class="row__track"></ul>
+        <p class="row__message" hidden></p>
+      </section>
+    </template>
+
+    <dialog class="modal modal--detail" id="detail" aria-labelledby="detail-title">
+      <button type="button" class="modal__close" data-close aria-label="Cerrar">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+      <div class="detail__image"><img alt="" /></div>
+      <div class="detail__body">
+        <h2 class="detail__title" id="detail-title"></h2>
+        <p class="detail__meta"></p>
+        <p class="detail__overview"></p>
+        <div class="feature__actions">
+          <button type="button" class="button button--primary" id="detail-play">
+            <svg class="icon" aria-hidden="true"><use href="#icon-play"></use></svg>
+            <span>Reproducir</span>
+          </button>
+          <button type="button" class="button button--secondary" id="detail-watch-party">
+            <span>Cine Virtual</span>
+          </button>
+          <button type="button" class="button button--secondary" id="detail-list"></button>
+          <button type="button" class="button button--secondary" id="detail-synopsis">
+            <svg class="icon" aria-hidden="true"><use href="#icon-document"></use></svg>
+            <span>Sinopsis</span>
+          </button>
+        </div>
+
+        <section class="episodes" aria-label="Episodios" hidden>
+          <div class="episodes__header">
+            <h3 class="episodes__heading">Episodios</h3>
+            <select class="episodes__season" aria-label="Temporada"></select>
+          </div>
+          <p class="episodes__status" role="status"></p>
+          <div class="episodes__carousel">
+            <button type="button" class="episodes__arrow" data-direction="-1" aria-label="Episodios anteriores">
+              <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+            </button>
+            <ol class="episodes__list"></ol>
+            <button type="button" class="episodes__arrow" data-direction="1" aria-label="Episodios siguientes">
+              <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+            </button>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--synopsis" id="synopsis" aria-labelledby="synopsis-title">
+      <button type="button" class="modal__close" data-close aria-label="Cerrar sinopsis">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+      <div class="synopsis__body">
+        <p class="synopsis__label">Sinopsis</p>
+        <h2 class="synopsis__title" id="synopsis-title"></h2>
+        <p class="synopsis__meta"></p>
+        <p class="synopsis__text"></p>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--player" id="player" aria-labelledby="player-title">
+      <button type="button" class="modal__close" data-close aria-label="Cerrar servidores">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+      <div class="player__body">
+        <p class="synopsis__label player__label">Reproducir</p>
+        <h2 class="player__title" id="player-title"></h2>
+        <p class="player__status" role="status"></p>
+        <div class="player__servers"></div>
+      </div>
+    </dialog>
+
+    <dialog class="watch" id="watch" aria-label="Reproductor" data-mode="loading">
+      <iframe title="Reproductor" frameborder="0" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="origin" hidden></iframe>
+      <video playsinline hidden></video>
+      <p class="watch__message" hidden></p>
+      <section class="human" aria-label="Verificación del servidor" hidden>
+        <header class="human__header">
+          <div class="human__text">
+            <h3 class="human__title"></h3>
+            <p class="human__hint" aria-live="polite"></p>
+          </div>
+          <button type="button" class="human__reload">Recargar</button>
+        </header>
+        <div class="human__screen" tabindex="0" aria-label="Vista del servidor: resuelve la verificación y pulsa reproducir">
+          <img class="human__view" alt="" draggable="false" hidden />
+          <span class="human__loading"></span>
+        </div>
+      </section>
+      <div class="watch__buffering" hidden></div>
+      <p class="watch__toast" aria-live="polite" hidden></p>
+      <div class="watch__level watch__level--volume" hidden>
+        <svg class="icon" aria-hidden="true"><use href="#icon-volume"></use></svg>
+        <div class="watch__level-track"></div>
+        <span class="watch__level-value">100%</span>
+      </div>
+      <div class="watch__level watch__level--brightness" hidden>
+        <svg class="icon" aria-hidden="true"><use href="#icon-brightness"></use></svg>
+        <div class="watch__level-track"></div>
+        <span class="watch__level-value">100%</span>
+      </div>
+
+      <div class="watch__top">
+        <button type="button" class="watch__button watch__back" data-close aria-label="Salir del reproductor">
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+        </button>
+        <h2 class="watch__title"></h2>
+        <button type="button" class="watch__party-badge" id="watch-party-badge" title="Copiar código" hidden></button>
+        <button type="button" class="watch__button watch__party-chat-toggle" id="watch-party-chat-toggle" aria-label="Chat de la sala" aria-expanded="false" aria-controls="watch-party-chat" hidden>
+          <span>Chat</span>
+        </button>
+        <button type="button" class="watch__button watch__settings-toggle" aria-label="Calidad" aria-expanded="false" aria-controls="watch-settings">
+          <svg class="icon" aria-hidden="true"><use href="#icon-gear"></use></svg>
+        </button>
+      </div>
+      <p class="watch__party-hint">Solo el anfitrión controla la reproducción</p>
+      <aside class="watch-party-chat" id="watch-party-chat" hidden>
+        <header class="watch-party-chat__header">
+          <div>
+            <p class="watch-party-chat__title">Chat de la sala</p>
+            <p class="watch-party-chat__count" id="watch-party-chat-count">0 activos</p>
+          </div>
+          <button type="button" class="watch__button" id="watch-party-chat-close" aria-label="Cerrar chat">×</button>
+        </header>
+        <div class="watch-party-chat__messages" id="watch-party-chat-messages"></div>
+        <div class="watch-party-chat__stickers" id="watch-party-chat-stickers" role="list"></div>
+        <form class="watch-party-chat__composer" id="watch-party-chat-form">
+          <input type="text" class="watch-party-chat__input" id="watch-party-chat-input" placeholder="Escribí un mensaje…" maxlength="400" autocomplete="off" />
+          <button type="button" class="watch-party-chat__voice" id="watch-party-chat-voice" title="Mantener para nota de voz">Mic</button>
+          <button type="submit" class="watch-party-chat__send">Enviar</button>
+        </form>
+      </aside>
+
+      <div class="watch__settings" id="watch-settings" hidden></div>
+
+      <div class="watch__bottom">
+        <div class="watch__timeline">
+          <input type="range" class="watch__seek" min="0" max="1000" step="1" value="0" aria-label="Progreso del video" />
+          <span class="watch__preview" hidden></span>
+        </div>
+        <div class="watch__bar">
+          <span class="watch__time watch__time--current">0:00</span>
+          <div class="watch__controls">
+            <button type="button" class="watch__button watch__previous-episode" aria-label="Episodio anterior" title="Episodio anterior" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#icon-previous-episode"></use></svg>
+            </button>
+            <button type="button" class="watch__button" data-skip="-10" aria-label="Retroceder 10 segundos">
+              <svg class="icon" aria-hidden="true"><use href="#icon-replay10"></use></svg>
+            </button>
+            <button type="button" class="watch__button watch__play" aria-label="Reproducir">
+              <svg class="icon" aria-hidden="true"><use href="#icon-play-solid"></use></svg>
+            </button>
+            <button type="button" class="watch__button" data-skip="10" aria-label="Adelantar 10 segundos">
+              <svg class="icon" aria-hidden="true"><use href="#icon-forward10"></use></svg>
+            </button>
+            <button type="button" class="watch__button watch__next-episode" aria-label="Siguiente episodio" title="Siguiente episodio" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#icon-next-episode"></use></svg>
+            </button>
+          </div>
+          <div class="watch__end">
+            <button type="button" class="watch__pill watch__episodes-toggle" aria-expanded="false" aria-controls="watch-episodes" hidden>
+              <svg class="icon" aria-hidden="true"><use href="#icon-episodes"></use></svg>
+              <span>Episodios</span>
+            </button>
+            <span class="watch__time watch__time--total">0:00</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="watch__episodes" id="watch-episodes" aria-label="Episodios" hidden>
+        <header class="watch__episodes-header">
+          <h3>Episodios</h3>
+          <span class="watch__episodes-season"></span>
+        </header>
+        <ol class="watch__episodes-list"></ol>
+      </section>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="watch-party-menu" aria-labelledby="watch-party-menu-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="watch-party-menu-title">Cine Virtual</h2>
+        <p class="watch-party-dialog__text">Mirá la misma película o episodio en sincronía con tus amigos.</p>
+        <div class="watch-party-dialog__actions">
+          <button type="button" class="button button--primary" id="watch-party-create">Crear sala</button>
+          <button type="button" class="button button--secondary" id="watch-party-join">Unirse a la sala</button>
+        </div>
+        <button type="button" class="button button--secondary" data-close>Cancelar</button>
+      </div>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="watch-party-create-dialog" aria-labelledby="watch-party-create-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="watch-party-create-title">Sala creada</h2>
+        <p class="watch-party-dialog__text">Compartí este código con tus amigos (solo los 4 caracteres).</p>
+        <p class="watch-party-dialog__code" id="watch-party-create-code">————</p>
+        <p class="watch-party-dialog__status" id="watch-party-create-status"></p>
+        <div class="watch-party-dialog__actions">
+          <button type="button" class="button button--secondary" id="watch-party-copy-code">Copiar código</button>
+          <button type="button" class="button button--primary" id="watch-party-continue-content">Continuar</button>
+        </div>
+        <button type="button" class="button button--secondary" data-close>Cerrar</button>
+      </div>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="watch-party-join-dialog" aria-labelledby="watch-party-join-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="watch-party-join-title">Unirse a la sala</h2>
+        <p class="watch-party-dialog__text">Ingresá el código que te compartió el anfitrión.</p>
+        <input class="watch-party-dialog__input" id="watch-party-join-code" maxlength="8" placeholder="AB12" autocomplete="off" />
+        <p class="watch-party-dialog__error" id="watch-party-join-error" hidden></p>
+        <div class="watch-party-dialog__actions">
+          <button type="button" class="button button--primary" id="watch-party-join-submit">Entrar</button>
+          <button type="button" class="button button--secondary" data-close>Cancelar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="watch-party-waiting" aria-labelledby="watch-party-waiting-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="watch-party-waiting-title">Esperando al anfitrión</h2>
+        <p class="watch-party-dialog__text" id="watch-party-waiting-text">Esperando a que el anfitrión elija el contenido…</p>
+        <p class="watch-party-dialog__status" id="watch-party-waiting-status"></p>
+        <button type="button" class="button button--secondary" data-close>Cancelar</button>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--confirm" id="confirm-clear" aria-labelledby="confirm-clear-title">
+      <div class="confirm__body">
+        <h2 class="confirm__title" id="confirm-clear-title">¿Borrar historial?</h2>
+        <p class="confirm__text">Se quitarán todos los títulos que abriste o reprodujiste. Mi lista no se modifica.</p>
+        <div class="confirm__actions">
+          <button type="button" class="button button--secondary" data-close>Cancelar</button>
+          <button type="button" class="button button--primary" id="confirm-clear-accept">Borrar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--confirm" id="confirm-exit" aria-labelledby="confirm-exit-title">
+      <div class="confirm__body">
+        <h2 class="confirm__title" id="confirm-exit-title">¿Salir de Plix?</h2>
+        <p class="confirm__text">Se cerrará la aplicación. Tu lista, historial y progreso quedan guardados.</p>
+        <div class="confirm__actions">
+          <button type="button" class="button button--secondary" data-close>Cancelar</button>
+          <button type="button" class="button button--primary" id="confirm-exit-accept">Salir</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="account-screen" id="account" aria-labelledby="account-title">
+      <header class="account-screen__header">
+        <button type="button" class="account-screen__back" data-close aria-label="Volver">
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+        </button>
+        <h1 class="account-screen__title" id="account-title">Cuenta</h1>
+        <button type="button" class="account-screen__backdrop-edit" id="edit-backdrop" aria-label="Cambiar fondo de perfil" title="Cambiar fondo de perfil" hidden>
+          <svg class="icon" aria-hidden="true"><use href="#icon-wallpaper"></use></svg>
+        </button>
+      </header>
+
+      <div class="account-screen__scroll">
+        <form class="account__form" id="account-form" novalidate>
+          <p class="synopsis__label">Cuenta Plix</p>
+          <h2 class="account__title">Entrar o crear cuenta</h2>
+          <p class="account__text">Usa el mismo usuario y PIN de la app Plix para tener tu lista, historial y progreso en la PC. Si el usuario no existe, se crea.</p>
+          <label class="account__field">
+            <span>Usuario</span>
+            <input type="text" name="username" autocomplete="username" maxlength="60" required />
+          </label>
+          <label class="account__field">
+            <span>PIN (4 a 8 dígitos)</span>
+            <input type="password" name="pin" inputmode="numeric" autocomplete="current-password" pattern="\d{4,8}" minlength="4" maxlength="8" required />
+          </label>
+          <p class="account__error" role="alert" hidden></p>
+          <button type="submit" class="button button--primary account__submit">Entrar</button>
+        </form>
+
+        <div class="account__profile" hidden>
+          <div class="profile-card">
+            <div class="profile-card__backdrop" hidden>
+              <img alt="" />
+              <video class="profile-card__backdrop-video" muted loop playsinline preload="metadata" hidden></video>
+            </div>
+            <div class="profile-card__content">
+              <div class="profile-card__identity">
+                <h2 class="profile-card__username"></h2>
+                <span class="profile-card__id"></span>
+                <div class="profile-card__friends">
+                  <strong class="profile-card__friends-count">—</strong>
+                  <span class="profile-card__friends-label">Amigos</span>
+                </div>
+              </div>
+              <div class="profile-card__avatar">
+                <img alt="Icono de perfil" />
+                <button type="button" class="profile-card__edit" id="edit-avatar" aria-label="Cambiar icono de perfil" title="Cambiar icono de perfil">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg>
+                </button>
+              </div>
+              <div class="profile-card__bio-row">
+                <p class="profile-card__bio"></p>
+                <button type="button" class="profile-card__edit profile-card__edit--bio" id="edit-bio" aria-label="Editar descripción" title="Editar descripción">
+                  <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="account__section">Información de cuenta</h3>
+          <div class="account__card">
+            <span class="account__label">Nombre de usuario</span>
+            <strong class="account__value account__info-username"></strong>
+            <hr class="account__divider" />
+            <span class="account__label">PIN</span>
+            <div class="account__pin">
+              <strong class="account__value account__pin-value"></strong>
+              <button type="button" class="account__pin-toggle" aria-label="Mostrar PIN" title="Mostrar PIN">
+                <svg class="icon" aria-hidden="true"><use href="#icon-eye"></use></svg>
+              </button>
+            </div>
+          </div>
+
+          <h3 class="account__section">Mis estadísticas</h3>
+          <div class="account__stats">
+            <div class="stat-card"><span class="stat-card__emoji" aria-hidden="true">🏆</span><strong class="stat-card__value" data-stat="achievements"></strong><span class="stat-card__label">Logros desbloqueados</span></div>
+            <div class="stat-card"><span class="stat-card__emoji" aria-hidden="true">🎬</span><strong class="stat-card__value" data-stat="movies"></strong><span class="stat-card__label">Películas reproducidas</span></div>
+            <div class="stat-card"><span class="stat-card__emoji" aria-hidden="true">📺</span><strong class="stat-card__value" data-stat="series"></strong><span class="stat-card__label">Series reproducidas</span></div>
+            <div class="stat-card"><span class="stat-card__emoji" aria-hidden="true">▶️</span><strong class="stat-card__value" data-stat="episodes"></strong><span class="stat-card__label">Episodios reproducidos</span></div>
+            <div class="stat-card stat-card--wide">
+              <span class="stat-card__emoji" aria-hidden="true">⏱️</span>
+              <div>
+                <strong class="stat-card__value" data-stat="usage"></strong>
+                <span class="stat-card__label">Tiempo total en la aplicación</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="account__section">Cine Virtual</h3>
+          <div class="account__card">
+            <p class="account__text">Creá una sala o unite con el código de un amigo para ver en sincronía.</p>
+            <div class="account__actions">
+              <button type="button" class="button button--secondary" id="account-watch-party">Abrir Cine Virtual</button>
+            </div>
+          </div>
+
+          <h3 class="account__section">Sincronización</h3>
+          <div class="account__card">
+            <p class="account__sync" role="status"></p>
+            <div class="account__actions">
+              <button type="button" class="button button--secondary" id="account-sync">
+                <svg class="icon" aria-hidden="true"><use href="#icon-sync"></use></svg>
+                <span>Sincronizar ahora</span>
+              </button>
+              <button type="button" class="button button--secondary" id="account-signout">Cerrar sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--picker" id="profile-picker" aria-labelledby="picker-title">
+      <button type="button" class="modal__close" data-close aria-label="Cerrar selector">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+      <div class="picker__body">
+        <h2 class="account__heading" id="picker-title"></h2>
+        <div class="picker__status" role="status">
+          <p class="picker__message"></p>
+          <button type="button" class="button button--secondary picker__retry" hidden>Reintentar</button>
+        </div>
+        <div class="picker__sections"></div>
+      </div>
+    </dialog>
+
+    <dialog class="sala-virtual-screen" id="sala-virtual" aria-labelledby="sala-virtual-title">
+      <header class="sala-virtual__header">
+        <button type="button" class="sala-virtual__back" data-close aria-label="Volver">
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+        </button>
+        <h1 class="sala-virtual__title" id="sala-virtual-title">Sala Virtual</h1>
+        <button type="button" class="sala-virtual__backdrop-edit" id="sala-edit-backdrop" aria-label="Cambiar fondo de perfil" title="Cambiar fondo de perfil">
+          <svg class="icon" aria-hidden="true"><use href="#icon-wallpaper"></use></svg>
+        </button>
+      </header>
+
+      <div class="sala-virtual__scroll">
+        <section class="sala-virtual__profile profile-card" id="sala-profile-card">
+          <div class="profile-card__backdrop" hidden>
+            <img alt="" />
+            <video class="profile-card__backdrop-video" muted loop playsinline preload="metadata" hidden></video>
+          </div>
+          <div class="profile-card__content">
+            <div class="profile-card__identity">
+              <h2 class="profile-card__username sala-virtual__username">—</h2>
+              <span class="profile-card__id sala-virtual__user-id" hidden></span>
+              <div class="profile-card__friends">
+                <strong class="profile-card__friends-count sala-virtual__friends-count">—</strong>
+                <span class="profile-card__friends-label">Amigos</span>
+              </div>
+            </div>
+            <div class="profile-card__avatar">
+              <img class="sala-virtual__avatar" alt="Icono de perfil" />
+              <button type="button" class="profile-card__edit" id="sala-edit-avatar" aria-label="Cambiar icono de perfil" title="Cambiar icono de perfil">
+                <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg>
+              </button>
+            </div>
+            <div class="profile-card__bio-row">
+              <p class="profile-card__bio sala-virtual__bio"></p>
+              <button type="button" class="profile-card__edit profile-card__edit--bio" id="sala-edit-bio" aria-label="Editar descripción" title="Editar descripción">
+                <svg class="icon" aria-hidden="true"><use href="#icon-edit"></use></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <button type="button" class="sala-virtual__id-card" id="sala-copy-id">
+          <strong class="sala-virtual__id-value" id="sala-my-id">MI ID: —</strong>
+          <span class="sala-virtual__id-hint">Tocar para copiar</span>
+        </button>
+
+        <h3 class="sala-virtual__section">Opciones</h3>
+        <div class="sala-virtual__options">
+          <button type="button" class="sala-virtual__option" id="sala-join">
+            <span class="sala-virtual__option-title">🍿 Unirse a sala</span>
+            <span class="sala-virtual__option-text">Ingresá el código de una sala de cine virtual</span>
+          </button>
+          <button type="button" class="sala-virtual__option" id="sala-stickers">
+            <span class="sala-virtual__option-title">Stickers Rápidos</span>
+            <span class="sala-virtual__option-text" id="sala-stickers-subtitle">Todavía no elegiste stickers</span>
+          </button>
+          <button type="button" class="sala-virtual__option" id="sala-requests">
+            <span class="sala-virtual__option-title">
+              Solicitudes
+              <span class="sala-virtual__badge" id="sala-requests-badge" hidden>0</span>
+            </span>
+            <span class="sala-virtual__option-text">Ver y responder solicitudes de amistad</span>
+          </button>
+          <button type="button" class="sala-virtual__option" id="sala-find-friends">
+            <span class="sala-virtual__option-title">Buscar amigos</span>
+            <span class="sala-virtual__option-text">Buscá usuarios por su ID PLIX</span>
+          </button>
+        </div>
+
+        <h3 class="sala-virtual__section">Amigos</h3>
+        <p class="sala-virtual__empty" id="sala-friends-empty">Sin amigos.</p>
+        <div class="sala-virtual__friends" id="sala-friends-list" hidden></div>
+
+        <h3 class="sala-virtual__section">Recientes</h3>
+        <p class="sala-virtual__empty" id="sala-recents-empty">Todavía no hay títulos vistos en sala</p>
+        <div class="sala-virtual__recents" id="sala-recents-list"></div>
+      </div>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="sala-friend-search" aria-labelledby="sala-friend-search-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="sala-friend-search-title">Buscar amigos</h2>
+        <p class="watch-party-dialog__text">Ingresá el ID PLIX (por ejemplo 00001234 o #00001234).</p>
+        <input class="watch-party-dialog__input" id="sala-friend-search-input" maxlength="16" placeholder="#00001234" autocomplete="off" />
+        <p class="watch-party-dialog__error" id="sala-friend-search-error" hidden></p>
+        <div class="sala-virtual__search-result" id="sala-friend-search-result" hidden></div>
+        <div class="watch-party-dialog__actions">
+          <button type="button" class="button button--primary" id="sala-friend-search-submit">Buscar</button>
+          <button type="button" class="button button--secondary" data-close>Cancelar</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="sala-friend-requests" aria-labelledby="sala-friend-requests-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="sala-friend-requests-title">Solicitudes</h2>
+        <p class="watch-party-dialog__text" id="sala-friend-requests-empty">No hay solicitudes pendientes.</p>
+        <div class="sala-virtual__requests" id="sala-friend-requests-list"></div>
+        <button type="button" class="button button--secondary" data-close>Cerrar</button>
+      </div>
+    </dialog>
+
+    <dialog class="watch-party-dialog" id="sala-stickers-dialog" aria-labelledby="sala-stickers-title">
+      <div class="watch-party-dialog__body">
+        <h2 class="watch-party-dialog__title" id="sala-stickers-title">Stickers Rápidos</h2>
+        <p class="watch-party-dialog__text">Estos stickers se usan en el chat de Cine Virtual.</p>
+        <div class="sala-virtual__sticker-grid" id="sala-sticker-grid"></div>
+        <button type="button" class="button button--secondary" data-close>Cerrar</button>
+      </div>
+    </dialog>
+
+    <dialog class="genre-screen" id="genre-browse" aria-labelledby="genre-browse-title">
+      <header class="genre-screen__header">
+        <button type="button" class="genre-screen__back" data-close aria-label="Volver">
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-left"></use></svg>
+        </button>
+        <h1 class="genre-screen__title" id="genre-browse-title">Género</h1>
+      </header>
+      <div class="genre-screen__scroll">
+        <p class="genre-screen__status" role="status"></p>
+        <ul class="genre-screen__grid"></ul>
+        <div class="genre-screen__sentinel" hidden>
+          <span class="genre-screen__spinner" aria-hidden="true"></span>
+          <span class="genre-screen__loading-label">Cargando más…</span>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--search" id="search" aria-label="Buscar películas y series">
+      <div class="search__header">
+        <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+        <input type="search" class="search__input" id="search-input" placeholder="Buscar películas y series" aria-label="Buscar películas y series" autocomplete="off" />
+        <button type="button" class="modal__close" data-close aria-label="Cerrar búsqueda">
+          <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+      <p class="search__status" role="status">Escribe al menos 2 letras para buscar.</p>
+      <ul class="search__results"></ul>
+    </dialog>
+
+    <script src="scripts/config.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/servers.js"></script>
+    <script src="scripts/my-list.js"></script>
+    <script src="scripts/watch-history.js"></script>
+    <script src="scripts/playback-progress.js"></script>
+    <script src="scripts/analytics.js"></script>
+    <script src="scripts/profile-catalog.js"></script>
+    <script src="scripts/cloud.js"></script>
+    <script src="scripts/watch-party-config.js"></script>
+    <script src="scripts/playback-sync.js"></script>
+    <script src="scripts/watch-party-server-matcher.js"></script>
+    <script src="scripts/watch-party-presence.js"></script>
+    <script src="scripts/watch-party-chat.js"></script>
+    <script src="scripts/watch-party-client.js"></script>
+    <script src="scripts/watch-party-manager.js"></script>
+    <script src="scripts/sala-virtual-recents.js"></script>
+    <script src="scripts/video-player.js"></script>
+    <script src="scripts/watch-party-ui.js"></script>
+    <script src="scripts/sala-virtual.js"></script>
+    <script src="scripts/human-check.js"></script>
+    <script src="scripts/index.js"></script>
+  </body>
+</html>

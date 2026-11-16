@@ -1,0 +1,72 @@
+{
+  "name": "plix",
+  "productName": "Plix",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plix",
+  "author": "Lzplay",
+  "main": "desktop/main.js",
+  "scripts": {
+    "start": "node server.js",
+    "app": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@puppeteer/browsers": "^3.2.3",
+    "electron-updater": "^6.8.9",
+    "puppeteer-core": "^25.12.0"
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.lzplay.plix",
+    "productName": "Plix",
+    "copyright": "© Lzplay",
+    "publish": {
+      "provider": "generic",
+      "url": "https://github.com/Plix-lz/Plix/releases/download/Plix-Pc/"
+    },
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "desktop/**",
+      "build/icon.png",
+      "index.html",
+      "scripts/**",
+      "styles/**",
+      "assets/**",
+      "server.js",
+      "capture.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png",
+      "executableName": "Plix"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Plix",
+      "uninstallDisplayName": "Plix",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "Plix.${ext}",
+      "installerLanguages": [
+        "es_ES"
+      ],
+      "language": "3082"
+    }
+  }
+}

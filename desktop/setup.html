@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'" />
+    <title>Plix</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+        user-select: none;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        padding: 32px 40px 36px;
+
+        background: radial-gradient(ellipse at 50% 85%, #0a1838 0%, #010413 60%);
+        color: #fff;
+        font: 400 14px 'Segoe UI', system-ui, sans-serif;
+        -webkit-app-region: drag;
+      }
+
+      .logo {
+        width: 210px;
+        height: 210px;
+        margin: -24px 0 -18px;
+        object-fit: cover;
+        mask-image: radial-gradient(circle, #000 55%, transparent 72%);
+        animation: pulse 2.4s ease-in-out infinite;
+      }
+
+      h1 {
+        font-size: 17px;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .detail {
+        min-height: 38px;
+        max-width: 440px;
+        color: #a9b6d6;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .bar {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        height: 6px;
+        overflow: hidden;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .bar__fill {
+        width: 0%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #1f6bff, #0cd8ff);
+        box-shadow: 0 0 12px rgba(12, 216, 255, 0.6);
+        transition: width 0.3s ease;
+      }
+
+      .bar--indeterminate .bar__fill {
+        position: absolute;
+        width: 35%;
+        animation: slide 1.2s ease-in-out infinite;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        -webkit-app-region: no-drag;
+      }
+
+      button {
+        height: 38px;
+        padding: 0 20px;
+        border: 0;
+        border-radius: 38px;
+        color: #fff;
+        font: 600 13px 'Segoe UI', system-ui, sans-serif;
+        cursor: pointer;
+        transition: filter 0.2s, background 0.2s;
+      }
+
+      .primary {
+        background: linear-gradient(135deg, #1f6bff, #0cb8ff);
+      }
+
+      .primary:hover {
+        filter: brightness(1.12);
+      }
+
+      .secondary {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .secondary:hover {
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .version {
+        position: absolute;
+        bottom: 10px;
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 11px;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      @keyframes slide {
+        from {
+          left: -35%;
+        }
+        to {
+          left: 100%;
+        }
+      }
+
+      @keyframes pulse {
+        50% {
+          filter: drop-shadow(0 0 18px rgba(12, 160, 255, 0.45));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <img class="logo" src="plix-logo.png" alt="Plix" />
+    <h1 id="title">Iniciando Plix…</h1>
+    <div class="bar bar--indeterminate" id="bar"><div class="bar__fill" id="fill"></div></div>
+    <p class="detail" id="detail">Comprobando los requisitos de la aplicación.</p>
+    <div class="actions" id="actions" hidden></div>
+    <span class="version" id="version"></span>
+    <script src="setup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+@import url('./app.css');
+@import url('./header.css');
+@import url('./movie.css');
+@import url('./navigation.css');
+@import url('./history.css');
+@import url('./rows.css');
+@import url('./modal.css');
+@import url('./search.css');
+@import url('./watch.css');
+@import url('./watch-party.css');
+@import url('./sala-virtual.css');
+@import url('./account.css');
+@import url('./splash.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  html {
+    font-size: 93.75%;
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+:root {
+  --primary: #fff;
+  --secondary: #c9d1e3;
+  --background: #0d162e;
+  --surface: #162447;
+  --surface-light: #1f2e57;
+  --accent: #0cffff;
+
+  --linear: linear-gradient(154.23deg, #0F3A7B -58.45%, #0CFFFF 374.49%);
+  --linear-bright: linear-gradient(135deg, #3a8dff 0%, #0cffff 100%);
+
+  --header-height: 88px;
+  --page-padding-left: 110px;
+  --page-padding-right: 80px;
+}
+
+@media (max-width: 1080px) {
+  :root {
+    --page-padding-left: 56px;
+    --page-padding-right: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 72px;
+    --page-padding-left: 32px;
+    --page-padding-right: 28px;
+  }
+}
+
+@media (max-width: 650px) {
+  :root {
+    --page-padding-left: 20px;
+    --page-padding-right: 20px;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+body, button, textarea, input {
+  color: var(--primary);
+  font: 400 1rem "Montserrat", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+  background: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 52px;
+
+  font-weight: 600;
+  white-space: nowrap;
+
+  transition: filter 0.3s, background 0.3s, border-color 0.3s;
+}
+
+.button--large {
+  height: 64px;
+  padding: 0 40px;
+  border-radius: 64px;
+  font-size: 1.125rem;
+}
+
+.button--primary {
+  background: var(--linear);
+  box-shadow: 0px 3px 50px rgba(0, 0, 0, 0.160784);
+}
+
+.button--primary:not(:disabled):hover {
+  filter: brightness(0.85);
+}
+
+.button--secondary {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.button--secondary:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.button--icon {
+  width: 52px;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(13, 22, 46, 0.4);
+}
+
+.button--icon.button--large {
+  width: 64px;
+}
+
+.button--icon:hover {
+  border-color: var(--primary);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 4px;
+
+  background: linear-gradient(90deg, #90cea1, #01b4e4);
+  color: #0d253f;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.footer {
+  padding: 32px var(--page-padding-right) 40px var(--page-padding-left);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+  color: var(--secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.footer a {
+  color: var(--accent);
+}
+
+@media (max-width: 650px) {
+  .button--large {
+    height: 52px;
+    padding: 0 24px;
+    font-size: 1rem;
+  }
+
+  .button--icon.button--large {
+    width: 52px;
+  }
+}

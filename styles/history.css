@@ -1,0 +1,147 @@
+.history__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.history__clear {
+  flex-shrink: 0;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 0.875rem;
+}
+
+.history__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 16px;
+
+  margin-top: 32px;
+  list-style: none;
+}
+
+.history__empty {
+  margin-top: 32px;
+  color: var(--secondary);
+  line-height: 1.5;
+}
+
+.history__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 4px;
+
+  position: relative;
+  isolation: isolate;
+  padding: 0 12px 14px;
+
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 8px 0px;
+  background: #0E172F;
+
+  text-align: left;
+  transition: border-color 0.3s;
+}
+
+.history__item:hover,
+.history__item:focus-visible {
+  border-color: rgba(255, 255, 255, 0.85);
+  outline: none;
+}
+
+.history__meta {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  color: var(--secondary);
+}
+
+.history__title {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+          line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.history__date {
+  font-size: 0.75rem;
+  color: var(--accent);
+}
+
+.history__image {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transition: transform 0.6s;
+}
+
+.history__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(180deg, rgba(14, 23, 47, 0.0001) 11.72%, #0E172F 100%);
+}
+
+.history__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.history__item:hover .history__image {
+  transform: scale(1.05);
+}
+
+.modal--confirm {
+  width: 440px;
+}
+
+.confirm__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px;
+}
+
+.confirm__title {
+  font-size: 1.375rem;
+  font-weight: 700;
+}
+
+.confirm__text {
+  color: var(--secondary);
+  line-height: 1.5;
+}
+
+.confirm__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.confirm__actions .button {
+  height: 44px;
+  padding: 0 22px;
+}
+
+@media(max-width: 650px) {
+  .history__list {
+    grid-template-columns: 1fr;
+  }
+
+  .confirm__body {
+    padding: 24px 20px;
+  }
+}
